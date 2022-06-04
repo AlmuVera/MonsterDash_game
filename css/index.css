@@ -4,12 +4,18 @@ html, body {
 }
 
 body {
-    background: black;
+    background-color:#66064b;    
+}
+
+#logo{
+    height: 200px;
+    margin-top: 80px;
+    position: relative;
 }
 
 canvas {
-    border: 1px solid white;
-    margin: 100px auto 50px auto;
+    border: 5px solid rgb(0, 0, 0);
+    margin: -100px auto 0 auto;
     display: block;
 }
 
@@ -17,8 +23,18 @@ div {
     text-align: center;
 }
 
-button {
-    padding: 10px 15px;
+
+#btn{
+    width: 100px;
+    border: 5px solid rgb(0, 0, 0);
+    background-color: #00c629;
+    color: #4a2240;
+    /* margin-top: -500px;  */
+    padding: 10px 20px;
     font-weight: bold;
     letter-spacing: 2px;
+    margin: -30px auto 0 auto;
+    position: relative;  
+
+
 }
