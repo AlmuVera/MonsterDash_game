@@ -6,13 +6,15 @@ class Game {
     this.background = new Background(ctx);
     this.player = new Player(ctx);
     this.enemies = [];
+    this.pumpkins = [];
     
     
     this.tick = 0;
+    this.tock = 0;
 
     this.audio = new Audio("audio/theme_MD.mp3");
     this.audio.volume = 0.2
-    this.gameOverAudio = new Audio("audio/game-over.mp3");
+    this.gameOverAudio = new Audio("audio/slimer_death_2.wav");
 
     this.setListeners();
   }
@@ -28,10 +30,16 @@ class Game {
       this.move();
       this.checkCollisions()
       //radomly add enemyies:
+      this.tick++;
+      this.tock++;
      
-      if (this.tick++ > Math.random() * 300 + 100) {
+      if (this.tick++ > Math.random() * 12000 + 50) {
         this.tick = 0;
         this.addEnemy();
+      }
+      if (this.tock++ > Math.random() * 1500 + 200) {
+        this.tock = 0;
+        this.addPumpkin();
       }
     }, 1000 / 60);
     
@@ -50,6 +58,7 @@ class Game {
 
     // TODO: clear not visible enemies (tip: filter)
     this.enemies = this.enemies.filter((e) => e.isVisible() && e.alive);
+    this.pumpkins = this.pumpkins.filter((p) => p.isVisible() && p.alive);
     this.player.bullets = this.player.bullets.filter((b) => !b.impact)
   }
 
@@ -59,6 +68,10 @@ class Game {
     //this.player.draw();
     this.enemies.forEach((enemy) => {
       enemy.draw()
+    });
+    this.pumpkins.forEach((pumpkin) => {
+      pumpkin.draw()
+
     });
     this.player.draw();
     
@@ -71,6 +84,9 @@ class Game {
     this.enemies.forEach((enemy) => {
       enemy.move()
     });
+    this.pumpkins.forEach((pumpkin) => {
+      pumpkin.move()
+    });
   }
 
   addEnemy() {
@@ -80,25 +96,50 @@ class Game {
     this.enemies.push(enemy)
   }
 
+  addPumpkin() {
+    // TODO: create new pumpkin and add it to this.pumpkins
+    const pumpkins = new Pumpkin(ctx)
+    pumpkins.audio.play()
+    this.pumpkins.push(pumpkins)
+  }
+
   checkCollisions() {
-    // TODO: check if any enemy "collision" with player
     let hit = false
+    // if enemy collide with player
     this.enemies.forEach((e) => {
       if (!hit && e.collision(this.player)) {
-        console.log('Colision enemy with player')
+        // console.log('Colision enemy with player')
         this.player.hit();
         hit = true
         e.alive = false
+        // console.log('zombie borrado')
       }
-      
+     // if bullet collide with enemy 
       this.player.bullets.forEach(b => {
         if (e.collision(b)) {
-          console.log('collision enemy with 1 bullet')
+          // console.log('collision enemy with 1 bullet')
           e.alive = false;
           b.impact = true;
         }
       })
+    });
 
+    this.pumpkins.forEach((pumpkin) => {
+      if (!hit && pumpkin.collision(this.player)) {
+        // console.log('Colision enemy with player')
+        this.player.hit();
+        hit = true
+        pumpkin.alive = false
+        console.log('pumpkin borrado')
+      }
+     // if bullet collide with pumpkin 
+      this.player.bullets.forEach(b => {
+        if (pumpkin.collision(b)) {
+          pumpkin.alive = false;
+          b.impact = true;
+        }   
+      })
+      
     });
    
     // TODO: check if game over

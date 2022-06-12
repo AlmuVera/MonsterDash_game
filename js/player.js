@@ -18,6 +18,8 @@ class Player {
 
     this.tick = 0;
 
+    this.lifes = [new Life(this.ctx, 60, 30 ), new Life(this.ctx, 105, 30 ), new Life(this.ctx, 150, 30 )]
+
     //creo un objeto donde guardo los sprites
     this.objImages = {}
 
@@ -39,11 +41,14 @@ class Player {
     this.actionSelected = 'run'
 
     this.audioJump = new Audio("audio/jump.wav");
+    this.audioJump.volume = 0.2;
+    this.audioInjured = new Audio('/audio/female-fighter-grunts-03.m4a')
+    this.audioInjured.volume = 0.1;
+    
     
     this.bullets = [];
 
     this.life = new Life(ctx);
-    
   }
 
   draw() {
@@ -63,9 +68,12 @@ class Player {
     this.life.draw();
 
     this.bullets.forEach((bullet) => {
-      console.log('pintando bala')
+      // console.log('pintando bala')
       bullet.draw();
     });
+    this.lifes.forEach((life) => {
+      life.draw()
+    })
     // TODO: draw score
   }
 
@@ -83,8 +91,8 @@ class Player {
     }
     // TODO: animate based on tick
     this.tick++;
-    //======>no me cambia la velocidad de cambio de frame (patitas player)
-    if (this.tick >= 20) {
+
+    if (this.tick >= 6) {
       this.tick = 0;
       this.animate();
     }
@@ -95,9 +103,7 @@ class Player {
 
    
     // TODO: move score
-    this.animate()
-
-    
+  
   }
 
   animate() {
@@ -113,23 +119,26 @@ class Player {
 
   hit() {
     // TODO: decrement score
-    this.life.dec();
+    this.lifes.pop();
+    this.audioInjured.play().volume = 0.2;
+
   }
 
   isAlive() {
     // TODO: return true if life is > 0
-    return this.life.total > 0;
+    return this.lifes.length > 0;
   }
 
   keyDown(key) {
     if (key === KEY_UP && this.vy === 0) {
       // TODO: jump and play jump sound
-      this.vy = -12;
+      this.vy = -14;
       this.actionSelected = 'jump'
-      this.audioJump.play().volume = 0.2;
+      this.audioJump.play()
     }
     if (key === KEY_SPACE) {
-       this.shoot();
+      this.shoot();
+      
     
     }
   }
@@ -142,15 +151,16 @@ class Player {
   }
 
   shoot() {
-    console.log('shooting')
     const bullet = new Bullet(
       this.ctx,
       this.x + this.w - 90,
-      this.y + this.h - 55
+      this.y + this.h - 55  
     );
-
+    
     this.bullets.push(bullet);
   }
+
+
 }
 
 

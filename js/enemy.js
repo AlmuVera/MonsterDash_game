@@ -1,8 +1,7 @@
 class Enemy {
   constructor(ctx) {
     this.ctx = ctx;
-
-
+    
     this.x = this.ctx.canvas.width;
     this.y = 240;
 
@@ -23,15 +22,13 @@ class Enemy {
     this.img.frames = 8;
     this.img.frameIndex = 0;
     this.img.src = "img/ZombieWalking.png";
-    
 
-    this.audio = new Audio("./audio/fall.wav");
-    this.audio.volume = 0.2
+    this.audio = new Audio("./audio/slimer_appear_1.wav");
+    this.audio.volume = 0.3
 
     this.alive = true
 
-    // TODO: init enemy. set x,y randomly top or right.
-    // TODO: play fireball audio
+  
   }
 
   draw() {
@@ -47,7 +44,7 @@ class Enemy {
       this.w, // dw
       this.h // dh
     );
-    
+    console.log("zombieeeeee")
   }
 
   move() {
@@ -74,19 +71,17 @@ class Enemy {
     }
   }
 
-
   isVisible() {
-    // TODO: return if enemy is inside the canvas based on x and y
+    // TODO: return if pumpkin is inside the canvas based on x and y
     return this.x + this.w && this.y + this.h > 0;
 
   }
 
   collision(p) {
-    // const colX = false; // TODO: check X collision between this and p
-    // const colY = false; // TODO: check Y collision between this and p
-    const colX = this.x <= p.x + p.w && this.x + this.w > p.x;
-    const colY = this.y + this.h > p.y && this.y < p.y + p.h;
-    
+    const colX = this.x <= p.x + p.w -60 && this.x + this.w -30 > p.x;
+    const colY = this.y + this.h > p.y  && this.y < p.y + p.h -35;
     return colX && colY;
-    // console.log('Colision')
-}}
+   
+    
+  }
+}

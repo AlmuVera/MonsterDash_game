@@ -14,12 +14,12 @@ class Bullet {
       this.vx = 15;
       this.vy = 0;
   
-    //   this.audio = new Audio("audio/shoot.wav").play();
-    //   this.audio.volume = 0.1
+      this.audio = new Audio("audio/shoot.wav").play();
+      this.audio.volume = 0.00;
 
       
 
-      new Audio("audio/shoot.wav").play();
+      // new Audio("audio/shoot.wav").play().volume = 0.1;
 
       this.img = new Image();
       this.img.src = "img/Bullet-2.png";
@@ -38,7 +38,7 @@ class Bullet {
     }
   
     isVisible() {
-      return this.x + this.r < this.ctx.canvas.width;
-      // return this.x + this.w && this.y + this.h > 0;
+      // return this.x + this.r < this.ctx.canvas.width;
+      return this.x + this.w && this.y + this.h > 0;
     }
 }

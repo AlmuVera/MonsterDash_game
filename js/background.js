@@ -14,7 +14,7 @@ class Background {
     this.vx = -2;
 
     this.img = new Image();
-    this.img.src = "img/bg_Moster_Dash_Red2.png";
+    this.img.src = "img/bg_Moster_Dash_Red2.png"; 
 
   }
 
