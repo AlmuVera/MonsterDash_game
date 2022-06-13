@@ -49,6 +49,7 @@ class Player {
     this.bullets = [];
 
     this.life = new Life(ctx);
+    this.score = new Score(ctx);
   }
 
   draw() {
@@ -66,6 +67,8 @@ class Player {
     );
 
     this.life.draw();
+    // TODO: draw scorelife
+    this.score.draw();
 
     this.bullets.forEach((bullet) => {
       // console.log('pintando bala')
@@ -74,7 +77,7 @@ class Player {
     this.lifes.forEach((life) => {
       life.draw()
     })
-    // TODO: draw score
+    
   }
 
   move() {

@@ -44,7 +44,7 @@ class Enemy {
       this.w, // dw
       this.h // dh
     );
-    console.log("zombieeeeee")
+    // console.log("zombieeeeee")
   }
 
   move() {

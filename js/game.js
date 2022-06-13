@@ -41,6 +41,9 @@ class Game {
         this.tock = 0;
         this.addPumpkin();
       }
+      if(this.player.isAlive()){
+        this.player.score.addScore()
+      }
     }, 1000 / 60);
     
   }
@@ -74,6 +77,7 @@ class Game {
 
     });
     this.player.draw();
+    this.player.score.draw();
     
   }
 
@@ -130,7 +134,7 @@ class Game {
         this.player.hit();
         hit = true
         pumpkin.alive = false
-        console.log('pumpkin borrado')
+        // console.log('pumpkin borrado')
       }
      // if bullet collide with pumpkin 
       this.player.bullets.forEach(b => {
@@ -162,7 +166,7 @@ class Game {
       this.ctx.canvas.height / 2
     );
     // TODO: restart player and enemies
-    this.player = new Player(ctx);
+    
     this.enemies = [];
 
   }

@@ -4,7 +4,15 @@ html, body {
 }
 
 body {
-    background-color:#66064b;    
+    background-color:#66064b;
+    /* background-image: url("/img/pumpkin.png");
+    background-size: 200px, 1000px;  
+    background-image: url("/img/Bullet-enemy.png"); 
+    background-image:  url("/img/pumpkin.png"), url("/img/Bullet-enemy.png");
+    background-repeat: round, round; */
+    
+
+
 }
 
 #logo{
@@ -12,6 +20,12 @@ body {
     margin-top: 80px;
     position: relative;
 }
+/* #score{
+    
+    color:red;
+    
+
+} */
 
 canvas {
     border: 5px solid rgb(0, 0, 0);
@@ -35,6 +49,4 @@ div {
     letter-spacing: 2px;
     margin: -30px auto 0 auto;
     position: relative;  
-
-
 }
