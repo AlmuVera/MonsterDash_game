@@ -1,3 +1,4 @@
+## Project_Game_IH_MonsterDash-AlmuVera2022
 - draw background
 - draw player
 - animate player
@@ -8,6 +9,4 @@
 - add score
 - add gameover
   ...
-# Project_Game_IH_MonsterDash_2022
-# Project_Game_IH_MonsterDash_2022
-# Project_Game_IH_MonsterDash-AlmuVera2022
+
