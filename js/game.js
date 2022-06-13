@@ -17,6 +17,9 @@ class Game {
     this.gameOverAudio = new Audio("audio/slimer_death_2.wav");
 
     this.setListeners();
+    
+    this.record = window.localStorage.getItem('Score') ? JSON.parse(window.localStorage.getItem('Score')) : [];
+    
   }
 
   start() {
@@ -72,11 +75,12 @@ class Game {
     this.enemies.forEach((enemy) => {
       enemy.draw()
     });
+    this.player.draw();
     this.pumpkins.forEach((pumpkin) => {
       pumpkin.draw()
 
     });
-    this.player.draw();
+    
     this.player.score.draw();
     
   }
@@ -153,21 +157,25 @@ class Game {
   }
 
   gameOver() {
+    this.record.push({score: this.player.score.score})
+    window.localStorage.setItem('Score', JSON.stringify(this.record))
     // TODO: play game over audio
     this.gameOverAudio.play();
     // TODO: stop game
     this.stop();
 
     // TODO: write "game over"
-    this.ctx.font = "60px Roboto";
-    this.ctx.fillText(
-      "GAME OVER",
-      this.ctx.canvas.width * 0.3,
-      this.ctx.canvas.height / 2
-    );
+    // this.ctx.font = "20px Kid_Games";
+    // this.ctx.fillText(
+    //   "GAME OVER",
+    //   this.ctx.canvas.width * 0.3,
+    //   this.ctx.canvas.height / 2
+    // );
     // TODO: restart player and enemies
     
     this.enemies = [];
+    // this.game = new Game (ctx)
+    this.player = new Player(ctx);
 
   }
 
