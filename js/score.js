@@ -7,9 +7,6 @@ class Score {
   }
 
   draw() {
-    // this.ctx.fillStyle = "#66064b";
-    // this.ctx.fillRect(640, 0, 200, 200);
-    
     this.ctx.fillText(`${this.score.toString().padStart(6,'0')}`,this.x, this.y);
     this.ctx.font = "40px Arco"
     this.ctx.fillStyle = "#0099ee";
