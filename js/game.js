@@ -20,6 +20,9 @@ class Game {
     
     this.record = window.localStorage.getItem('Score') ? JSON.parse(window.localStorage.getItem('Score')) : [];
     
+    
+    // this.gameOverImg = new Image();
+    // this.gameOverImg.src = '/img/gameover_cover copia.jpg'
   }
 
   start() {
@@ -165,12 +168,26 @@ class Game {
     this.stop();
 
     // TODO: write "game over"
-    // this.ctx.font = "20px Kid_Games";
+    this.ctx.fillStyle = "#66064b";
+    this.ctx.fillRect(0, 0, 800, 350);
+
+    this.ctx.fillStyle = "#e4b9c2";
+    this.ctx.fillText('GAME OVER',265, 200);
+    this.ctx.font = "2px Arco"
+    // this.ctx.fillStyle = "#e4b9c2";
+
+    // this.ctx.fillStyle = "white";
+    // this.ctx.font = "20px Arco";
     // this.ctx.fillText(
     //   "GAME OVER",
     //   this.ctx.canvas.width * 0.3,
     //   this.ctx.canvas.height / 2
     // );
+    // this.ctx.fillStyle = "#66064b";
+    // this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+
+
+  
     // TODO: restart player and enemies
     
     this.enemies = [];
@@ -178,6 +195,10 @@ class Game {
     this.player = new Player(ctx);
 
   }
+  // drawGameOver(){
+  //   const ctx = document.querySelector('canvas').getContext('2d');
+  //   ctx.drawImage(gameOverImg, 0, 0);
+  // };
 
   setListeners() {
     // TODO: proxy "keydown" key to player keyDown method
