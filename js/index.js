@@ -11,8 +11,11 @@ document.querySelector('#btn').addEventListener("click", function (e) {
         this.innerText = "START";
     } else {
         game.start();
-        this.innerText = "PAUSE";
-        
+        this.innerText = "PAUSE";  
     }
+});
+
+document.querySelector('#btn-restart').addEventListener("click", function (e) {
+    window.location.reload()
 });
 

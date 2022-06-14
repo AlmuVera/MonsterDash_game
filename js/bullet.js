@@ -6,20 +6,13 @@ class Bullet {
 
       this.w = 50;
       this.h = 25;
-
-
-      // this.r = 5;
-      //this.g = 0.1;
   
       this.vx = 15;
       this.vy = 0;
   
-      this.audio = new Audio("audio/shoot.wav").play();
-      this.audio.volume = 0.00;
-
-      
-
-      // new Audio("audio/shoot.wav").play().volume = 0.1;
+      this.audio = new Audio("audio/shoot.wav");
+      this.audio.play()
+      this.audio.volume = 0.15;
 
       this.img = new Image();
       this.img.src = "img/Bullet-2.png";
@@ -32,7 +25,7 @@ class Bullet {
         this.ctx.drawImage(this.img, this.x + this.w, this.y, this.w, this.h);
     }
    
-  
+
     move() {
       this.x += this.vx;
     }

@@ -46,6 +46,7 @@ class Player {
     this.audioInjured.volume = 0.1;
     
     
+    
     this.bullets = [];
 
     this.life = new Life(ctx);
@@ -73,6 +74,7 @@ class Player {
     this.bullets.forEach((bullet) => {
       // console.log('pintando bala')
       bullet.draw();
+     
     });
     this.lifes.forEach((life) => {
       life.draw()
@@ -103,9 +105,6 @@ class Player {
     this.bullets.forEach((bullet) => {
       bullet.move();
     });
-
-   
-    // TODO: move score
   
   }
 
@@ -142,7 +141,7 @@ class Player {
     if (key === KEY_SPACE) {
       this.shoot();
       
-    
+      
     }
   }
 
@@ -161,6 +160,7 @@ class Player {
     );
     
     this.bullets.push(bullet);
+    
   }
 
 

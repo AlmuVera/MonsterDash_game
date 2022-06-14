@@ -12,8 +12,7 @@ class Pumpkin {
     this.h = 40;
 
     this.vy = 0;
-    // this.vx = -5; mas rapido hacia el player 
-    this.vx = -3;
+    this.vx = -5;
 
     // this.g = 10; caida mas rapida
     this.g = 5;
@@ -31,7 +30,7 @@ class Pumpkin {
 
   draw() {
     this.ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
-    console.log("pumpkinnnn");
+    // console.log("pumpkinnnn");
   }
 
   move() {

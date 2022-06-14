@@ -10,28 +10,29 @@ class Game {
 
     this.tick = 0;
     this.tock = 0;
+    this.gameTime = 0;
 
     this.audio = new Audio("audio/theme_MD.mp3");
     this.audio.volume = 0.2;
     this.gameOverAudio = new Audio("audio/slimer_death_2.wav");
+    this.gameOverAudio.volume = 0.3;
+    this.menuGameAudio = new Audio("audio/Menu theme- Monster Dash Zombie Metropolis.mp3");
+    this.menuGameAudio.volume = 0.1;
+    
+
 
     this.setListeners();
 
     this.record = window.localStorage.getItem("Score")
       ? JSON.parse(window.localStorage.getItem("Score"))
       : [];
-    // //find the highest value into the array of records
-    // let score = this.record.map(object => {
-    //   return object.score;
-    // });
-    // // console.log(score);
-    // let highestScore = Math.max(...score);
-    // console.log(highestScore);
+   
   }
 
   start() {
     // TODO: play audio
     this.audio.play();
+    this.menuGameAudio.pause();
 
     // TODO: init game loop: clear, draw, move, check collisions and randomly add enemy based on ticks
     this.interval = setInterval(() => {
@@ -66,7 +67,6 @@ class Game {
   }
 
   clear() {
-    // TODO: clear entire canvas
 
     // TODO: clear not visible enemies (tip: filter)
     this.enemies = this.enemies.filter((e) => e.isVisible() && e.alive);
@@ -117,6 +117,7 @@ class Game {
 
   checkCollisions() {
     let hit = false;
+    
     // if enemy collide with player
     this.enemies.forEach((e) => {
       if (!hit && e.collision(this.player)) {
@@ -132,6 +133,12 @@ class Game {
           // console.log('collision enemy with 1 bullet')
           e.alive = false;
           b.impact = true;
+          this.gameTime++;
+          console.log('gametime test')
+          if(this.gameTime > 5){
+            this.addEnemy()
+            // this.addEnemy()
+          }
         }
       });
     });
@@ -144,13 +151,7 @@ class Game {
         pumpkin.alive = false;
         // console.log('pumpkin borrado')
       }
-      // if bullet collide with pumpkin
-      this.player.bullets.forEach((b) => {
-        if (pumpkin.collision(b)) {
-          pumpkin.alive = false;
-          b.impact = true;
-        }
-      });
+  
     });
 
     // TODO: check if game over
@@ -164,29 +165,52 @@ class Game {
     window.localStorage.setItem("Score", JSON.stringify(this.record));
     // TODO: play game over audio
     this.gameOverAudio.play();
+    this.menuGameAudio.play();
     // TODO: stop game
     this.stop();
 
     // TODO: write "game over"
+    //background Game over
     this.ctx.fillStyle = "#66064b";
     this.ctx.fillRect(0, 0, 800, 350);
 
+    // Black shadow - "score" in GameOver cover
+    this.ctx.font = "70px Arco"; 
+    this.ctx.fillStyle = "black";
+    this.ctx.fillText(`SCORE: ${this.player.score.score}`, 190 + 3, 230 + 2);
+    // Text - "score" in GameOver cover  
     this.ctx.fillStyle = "#0099ee";
-    this.ctx.fillText(`SCORE: ${this.player.score.score}`, 280, 200);
-
-    this.ctx.fillStyle = "#e4b9c2";
-    this.ctx.fillText(`BEST SCORE: ${this.checkHighestScore()}`, 210, 250);
+    this.ctx.fillText(`SCORE: ${this.player.score.score}`, 190, 230);
+    
+    // Black shadow - "best score" in GameOver cover  
     this.ctx.font = "50px Arco";
-    console.log(`BEST SCORE: ${this.checkHighestScore()}`);
+    this.ctx.fillStyle = "black";
+    this.ctx.fillText(`BEST SCORE: ${this.checkHighestScore()}`, 160 + 3, 300 + 2);
+    // Text - "score" in GameOver cover 
+    this.ctx.fillStyle = "#FFFF01";
+    this.ctx.fillText(`BEST SCORE: ${this.checkHighestScore()}`, 160, 300);
+    this.ctx.font = "50px Arco";
+    // console.log(`BEST SCORE: ${this.checkHighestScore()}`);
+
+    this.ctx.fillStyle = "black";
+    this.ctx.fillText("GAME OVER", 245 + 3, 150 + 2);
 
     this.ctx.fillStyle = "#e4b9c2";
     this.ctx.fillText("GAME OVER", 245, 150);
-    this.ctx.font = "80px Arco";
+    // this.ctx.font = "80px Arco";
 
     // TODO: restart player and enemies
     this.enemies = [];
     // this.game = new Game (ctx)
     this.player = new Player(ctx);
+    
+    const restart = document.getElementById('btn-restart')
+    restart.style.display = 'block'
+    
+
+  
+
+    
   }
 
   checkHighestScore() {
@@ -194,9 +218,9 @@ class Game {
     let score = this.record.map((object) => {
       return object.score;
     });
-    // console.log(score);
+    console.log(score);
     let highestScore = Math.max(...score);
-    // console.log(highestScore);
+    console.log(highestScore);
     return highestScore;
   }
 
