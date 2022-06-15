@@ -5,7 +5,7 @@ class Pumpkin {
     this.x = Math.random() * this.ctx.canvas.width + 220;
     this.y = 0;
 
-    //creo this.maxY para limitar la posicion del pumpkin en canvas
+    //Added this.maxY to limited the pumpkin position Y into the canvas
     this.maxY = this.y + 290;
 
     this.w = 40;
@@ -14,7 +14,7 @@ class Pumpkin {
     this.vy = 0;
     this.vx = -5;
 
-    // this.g = 10; caida mas rapida
+    // if increase this.g = 10; falling faster (for future levels)
     this.g = 5;
 
     this.tick = 0;
@@ -30,24 +30,21 @@ class Pumpkin {
 
   draw() {
     this.ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
-    // console.log("pumpkinnnn");
   }
 
   move() {
-    // TODO: move, add a to v and v to position
     this.x += this.vx;
     this.y += this.g;
 
     if (this.y >= this.maxY){
         this.y = this.maxY
         this.vy = 0;
-        this.x += this.vx;
-        
+        this.x += this.vx; 
     }
   }
 
   isVisible() {
-    // TODO: return if pumpkin is inside the canvas based on x and y
+    // Return if pumpkin is inside the canvas based on x and y
     return this.x + this.w && this.y + this.h > 0;
   }
 
@@ -55,7 +52,7 @@ class Pumpkin {
     const colX = this.x <= p.x + p.w - 60 && this.x + this.w - 30 > p.x;
     const colY = this.y + this.h > p.y && this.y < p.y + p.h - 35;
     return colX && colY;
-    // console.log('Colision')
+   
   }
 
 }

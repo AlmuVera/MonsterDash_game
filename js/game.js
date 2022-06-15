@@ -7,7 +7,7 @@ class Game {
     this.player = new Player(ctx);
     this.enemies = [];
     this.pumpkins = [];
-
+    // tick = enemies (zombies) // tock = pumpkins
     this.tick = 0;
     this.tock = 0;
     this.gameTime = 0;
@@ -19,27 +19,25 @@ class Game {
     this.menuGameAudio = new Audio("audio/Menu theme- Monster Dash Zombie Metropolis.mp3");
     this.menuGameAudio.volume = 0.1;
     
-
-
     this.setListeners();
 
     this.record = window.localStorage.getItem("Score")
       ? JSON.parse(window.localStorage.getItem("Score"))
       : [];
-   
   }
 
   start() {
-    // TODO: play audio
+    // Play audio
     this.audio.play();
     this.menuGameAudio.pause();
 
-    // TODO: init game loop: clear, draw, move, check collisions and randomly add enemy based on ticks
+    //Init game:
     this.interval = setInterval(() => {
       this.clear();
       this.draw();
       this.move();
       this.checkCollisions();
+      
       //radomly add enemyies:
       this.tick++;
       this.tock++;
@@ -59,7 +57,7 @@ class Game {
   }
 
   stop() {
-    // TODO: pause audio, stop interval, set interval to null
+    //Stop game
     this.audio.pause();
 
     clearInterval(this.interval);
@@ -67,17 +65,15 @@ class Game {
   }
 
   clear() {
-
-    // TODO: clear not visible enemies (tip: filter)
+    // Clear not visible enemies, pumpkins and bullets
     this.enemies = this.enemies.filter((e) => e.isVisible() && e.alive);
     this.pumpkins = this.pumpkins.filter((p) => p.isVisible() && p.alive);
     this.player.bullets = this.player.bullets.filter((b) => !b.impact);
   }
 
   draw() {
-    // TODO: draw everything
+    //Draw everything
     this.background.draw();
-    //this.player.draw();
     this.enemies.forEach((enemy) => {
       enemy.draw();
     });
@@ -90,7 +86,7 @@ class Game {
   }
 
   move() {
-    // TODO: move everything
+    //Move everything
     this.background.move();
     this.player.move();
     this.enemies.forEach((enemy) => {
@@ -102,14 +98,14 @@ class Game {
   }
 
   addEnemy() {
-    // TODO: create new enemy and add it to this.enemies
+    // Create new enemy and add it to this.enemies
     const enemy = new Enemy(ctx);
     enemy.audio.play();
     this.enemies.push(enemy);
   }
 
   addPumpkin() {
-    // TODO: create new pumpkin and add it to this.pumpkins
+    // Create new pumpkin and add it to this.pumpkins
     const pumpkins = new Pumpkin(ctx);
     pumpkins.audio.play();
     this.pumpkins.push(pumpkins);
@@ -121,60 +117,54 @@ class Game {
     // if enemy collide with player
     this.enemies.forEach((e) => {
       if (!hit && e.collision(this.player)) {
-        // console.log('Colision enemy with player')
         this.player.hit();
         hit = true;
         e.alive = false;
-        // console.log('zombie borrado')
       }
       // if bullet collide with enemy
       this.player.bullets.forEach((b) => {
         if (e.collision(b)) {
-          // console.log('collision enemy with 1 bullet')
           e.alive = false;
           b.impact = true;
           this.gameTime++;
           console.log('gametime test')
           if(this.gameTime > 5){
             this.addEnemy()
-            // this.addEnemy()
+            
           }
         }
       });
     });
-
+    
+    // if pumpkin collide with player
     this.pumpkins.forEach((pumpkin) => {
       if (!hit && pumpkin.collision(this.player)) {
-        // console.log('Colision enemy with player')
         this.player.hit();
         hit = true;
         pumpkin.alive = false;
-        // console.log('pumpkin borrado')
       }
-  
     });
 
-    // TODO: check if game over
+    // Check if game over
     if (!this.player.isAlive()) {
       this.gameOver();
     }
   }
 
   gameOver() {
+    //Add score to the records
     this.record.push({ score: this.player.score.score });
     window.localStorage.setItem("Score", JSON.stringify(this.record));
-    // TODO: play game over audio
+    // Play game over audios
     this.gameOverAudio.play();
     this.menuGameAudio.play();
-    // TODO: stop game
+    //Stop game
     this.stop();
-
-    // TODO: write "game over"
     //background Game over
     this.ctx.fillStyle = "#66064b";
     this.ctx.fillRect(0, 0, 800, 350);
 
-    // Black shadow - "score" in GameOver cover
+    // Black shadow - Text "score" in GameOver cover
     this.ctx.font = "70px Arco"; 
     this.ctx.fillStyle = "black";
     this.ctx.fillText(`SCORE: ${this.player.score.score}`, 190 + 3, 230 + 2);
@@ -182,7 +172,7 @@ class Game {
     this.ctx.fillStyle = "#0099ee";
     this.ctx.fillText(`SCORE: ${this.player.score.score}`, 190, 230);
     
-    // Black shadow - "best score" in GameOver cover  
+    // Black shadow - Text "best score" in GameOver cover  
     this.ctx.font = "50px Arco";
     this.ctx.fillStyle = "black";
     this.ctx.fillText(`BEST SCORE: ${this.checkHighestScore()}`, 160 + 3, 300 + 2);
@@ -197,20 +187,13 @@ class Game {
 
     this.ctx.fillStyle = "#e4b9c2";
     this.ctx.fillText("GAME OVER", 245, 150);
-    // this.ctx.font = "80px Arco";
 
-    // TODO: restart player and enemies
+    // Restart player and enemies
     this.enemies = [];
-    // this.game = new Game (ctx)
     this.player = new Player(ctx);
-    
+    //Add button Restart to reload the game
     const restart = document.getElementById('btn-restart')
-    restart.style.display = 'block'
-    
-
-  
-
-    
+    restart.style.display = 'block'  
   }
 
   checkHighestScore() {
@@ -225,8 +208,6 @@ class Game {
   }
 
   setListeners() {
-    // TODO: proxy "keydown" key to player keyDown method
-    // TODO: proxy "keyup" key to player keyUp method
     document.addEventListener("keydown", (event) => {
       this.player.keyDown(event.keyCode);
     });

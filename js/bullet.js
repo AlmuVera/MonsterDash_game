@@ -18,20 +18,17 @@ class Bullet {
       this.img.src = "img/Bullet-2.png";
       
       this.impact = false
-      
     }
   
     draw() {
         this.ctx.drawImage(this.img, this.x + this.w, this.y, this.w, this.h);
     }
    
-
     move() {
       this.x += this.vx;
     }
   
     isVisible() {
-      // return this.x + this.r < this.ctx.canvas.width;
       return this.x + this.w && this.y + this.h > 0;
     }
 }

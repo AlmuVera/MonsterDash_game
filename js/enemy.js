@@ -5,7 +5,7 @@ class Enemy {
     this.x = this.ctx.canvas.width;
     this.y = 240;
 
-    //creo this.maxY para limitar la posicion del enemy en canvas
+    //Added this.maxY to limited the enemy position Y into the canvas
     this.maxY = this.y
 
     this.w = 90;
@@ -28,29 +28,24 @@ class Enemy {
 
     this.alive = true
 
-  
   }
 
   draw() {
-    // TODO: draw 
     this.ctx.drawImage(
-      this.img, //img
-      (this.img.frameIndex * this.img.width) / this.img.frames, //sy
-      0, //sx
-      this.img.width / this.img.frames, //sw
-      this.img.height, //sh
-      this.x, // dx
-      this.y, // dy
-      this.w, // dw
-      this.h // dh
+      this.img, 
+      (this.img.frameIndex * this.img.width) / this.img.frames, 
+      0, 
+      this.img.width / this.img.frames, 
+      this.img.height, 
+      this.x, 
+      this.y, 
+      this.w, 
+      this.h 
     );
-    // console.log("zombieeeeee")
   }
 
   move() {
-    // TODO: move, add a to v and v to position
     this.x += this.vx;
-    //this.y += this.vy;
 
     //animate based on tick
     this.tick++;
@@ -72,7 +67,7 @@ class Enemy {
   }
 
   isVisible() {
-    // TODO: return if pumpkin is inside the canvas based on x and y
+    // Return if enemy is inside the canvas based on x and y
     return this.x + this.w && this.y + this.h > 0;
 
   }

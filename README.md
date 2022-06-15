@@ -1,13 +1,4 @@
-- draw background
-- draw player
-- animate player
-- move player
-- jump player
-- player can shoot
-- add enemy
-- add score
-- add gameover
-  ...
-# Project_Game_IH_MonsterDash_2022
-# Project_Game_IH_MonsterDash_2022
-# Project_Game_IH_MonsterDash-AlmuVera2022
+
+## Project_Game_IH_MonsterDash-AlmuVera2022
+
+Help Jane to survive in a city devastated by terrifying zombies and killer pumpkins

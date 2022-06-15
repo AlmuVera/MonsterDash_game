@@ -1,12 +1,11 @@
 class Player {
   constructor(ctx) {
-    // TODO: init player attributes: position, size, v, a, img, audio, score, tick
     this.ctx = ctx;
 
     this.x = 50;
     this.y = 240;
 
-    //creo this.maxY para limitar la posicion del player en canvas
+    //Added this.maxY to limited the player position Y into the canvas
     this.maxY = this.y
 
     this.vy = 0;
@@ -20,22 +19,22 @@ class Player {
 
     this.lifes = [new Life(this.ctx, 60, 30 ), new Life(this.ctx, 105, 30 ), new Life(this.ctx, 150, 30 )]
 
-    //creo un objeto donde guardo los sprites
+    //Added an object to have the different sprites of the player
     this.objImages = {}
 
-    //creo una imagen para sprite 1
+    //created a new image for sprite player-running 
     let imgRun = new Image();
     imgRun.frames = 6;
     imgRun.frameIndex = 0;
     imgRun.src = "img/RunWithGun_001-Blue.png";
-    //guardo la imagen en objeto de sprites 
+    //Saved it into the images's object 
     this.objImages['run'] = imgRun
-    //creo una imagen para sprite 1
+    //created a new image for sprite player-jumping
     let imgJumping = new Image();
     imgJumping.frames = 1;
     imgJumping.frameIndex = 0;
     imgJumping.src = "img/JumpingWithGun-Blue.png"
-    //guardo la imagen en objeto de sprites 
+    //Saved it into the images's object 
     this.objImages['jump'] = imgJumping
 
     this.actionSelected = 'run'
@@ -45,8 +44,6 @@ class Player {
     this.audioInjured = new Audio('/audio/female-fighter-grunts-03.m4a')
     this.audioInjured.volume = 0.1;
     
-    
-    
     this.bullets = [];
 
     this.life = new Life(ctx);
@@ -54,7 +51,7 @@ class Player {
   }
 
   draw() {
-    // TODO: draw player image
+    //actiomSelected by default: "running"
     this.ctx.drawImage(
       this.objImages[this.actionSelected],
       (this.objImages[this.actionSelected].frameIndex * this.objImages[this.actionSelected].width) / this.objImages[this.actionSelected].frames,
@@ -68,7 +65,6 @@ class Player {
     );
 
     this.life.draw();
-    // TODO: draw scorelife
     this.score.draw();
 
     this.bullets.forEach((bullet) => {
@@ -83,18 +79,17 @@ class Player {
   }
 
   move() {
-    // TODO: move player. v + a, position + v
     this.vy += this.g;
     this.y += this.vy;
 
-    // TODO: check if floor to stop falling
+    // Checked if floor to stop falling
     if (this.y >= this.maxY){
       this.y = this.maxY
       this.vy = 0;
       this.actionSelected = 'run'
       
     }
-    // TODO: animate based on tick
+    // Animate based on tick
     this.tick++;
 
     if (this.tick >= 6) {
@@ -109,7 +104,7 @@ class Player {
   }
 
   animate() {
-    // TODO: increment frameIndex only if not vy
+    // Increment frameIndex only if not vy
     if (this.vy === 0) {
       this.objImages[this.actionSelected].frameIndex++;
 
@@ -120,34 +115,30 @@ class Player {
   }
 
   hit() {
-    // TODO: decrement score
+    // Decrement life
     this.lifes.pop();
     this.audioInjured.play().volume = 0.2;
 
   }
 
   isAlive() {
-    // TODO: return true if life is > 0
+    // Return true if life is > 0
     return this.lifes.length > 0;
   }
 
   keyDown(key) {
     if (key === KEY_UP && this.vy === 0) {
-      // TODO: jump and play jump sound
       this.vy = -14;
       this.actionSelected = 'jump'
       this.audioJump.play()
     }
     if (key === KEY_SPACE) {
       this.shoot();
-      
-      
     }
   }
 
   keyUp(key) {
     if (key === KEY_UP && this.vy === 0) {
-      // TODO: jump and play jump sound
       this.actionSelected = 'run'
     }
   }
@@ -159,14 +150,11 @@ class Player {
       this.y + this.h - 55  
     );
     
-    this.bullets.push(bullet);
-    
+    this.bullets.push(bullet); 
   }
-
-
 }
 
 
 
-///si quiero que camie de color cuando colisione o pierda vida
+///NOTE for myself for futures features: si quiero que camie de color cuando colisione o pierda vida
 //setTimeout(() => {this.actionSelected = 'correrrojo'}, 2000)

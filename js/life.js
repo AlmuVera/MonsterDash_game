@@ -1,6 +1,5 @@
 class Life {
   constructor(ctx, x, y) {
-    // TODO: init position, size
     this.ctx = ctx;
 
     this.x = x;

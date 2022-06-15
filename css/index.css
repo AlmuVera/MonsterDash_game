@@ -61,3 +61,30 @@ canvas {
     margin: -49px auto 0 auto;
     position: relative; 
 }
+
+.controls{
+    background-color: white;
+    border-radius: 5px;
+    /* opacity: 60%; */
+    padding: 10px 20px;
+    width: 400px;
+    margin-left: auto;
+    margin-top: 20px;
+    margin-right: auto;
+}
+.controls h2{
+    color: #66064b;
+    margin: px;
+}
+.controls .explanation{
+    font-size: 15px;
+}
+.controls p{
+    /* color: #66064b; */
+    font-size: 20px;
+    
+}
+.rules{
+    color: #66064b;
+}
+
