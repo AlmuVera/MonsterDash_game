@@ -1,5 +1,7 @@
 <h1>Game Project - MonsterDash AlmuVera version 2022</h1>
 
+### Play this addictive game and match your highest score.
+
 ![Cover_readme](https://user-images.githubusercontent.com/34789858/173815148-e5941892-a1ed-4d5a-ab6b-988a36cfabc1.png)
 
 ## About the game
@@ -35,7 +37,6 @@ You just can jump over them to avoid them.
 
 ![pumpkin](https://user-images.githubusercontent.com/34789858/173825662-025168f3-f6e5-4f96-81cf-b6dc2af08581.png)
 
-## Play this addictive game and match your highest score.
 
 
 
